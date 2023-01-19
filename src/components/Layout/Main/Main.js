@@ -41,9 +41,14 @@ export default function Main() {
         ;
       </select>
       <p id="error-display">{error}</p>
-      {filteredCountries.map((country) => (
-        <CountryCard key={country.id} {...country} />
-      ))}
+      {filteredCountries.map((country) => {
+        if (selectedContinent === 'All') {
+          return <CountryCard key={country.id} {...country} />;
+        } else if (country.continent === selectedContinent) {
+          return <CountryCard key={country.id} {...country} />;
+        }
+      })}
+      {/* <CountryCard key={country.id} {...country} />} )} */}
     </main>
   );
 }
