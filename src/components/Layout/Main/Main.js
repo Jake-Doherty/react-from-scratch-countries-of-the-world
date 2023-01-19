@@ -3,7 +3,10 @@ import { useAllCountries } from '../../../hooks/useCountries.js';
 import CountryCard from '../../CountryCard/CountryCard.js';
 
 export default function Main() {
-  const { countries, error } = useAllCountries();
+  const [order, setOrder] = useState('');
+  const [searchByName, setSearchByName] = useState('');
+
+  const { countries, error } = useAllCountries(order, searchByName);
 
   const filteredCountries = countries.filter((countriesArray) => countriesArray);
 
@@ -40,6 +43,15 @@ export default function Main() {
         })}
         ;
       </select>
+      <select className="select-order" value={order} onChange={(e) => setOrder(e.target.value)}>
+        <option value="">Select an option</option>
+        <option value="asc">Alphabet Ascending</option>
+        <option value="desc">Alphabet Descending</option>
+      </select>
+      <input
+        placeholder="Search by country name"
+        onChange={(e) => setSearchByName(e.target.value)}
+      />
       <p id="error-display">{error}</p>
       {filteredCountries.map((country) => {
         if (selectedContinent === 'All') {
