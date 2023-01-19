@@ -5,8 +5,9 @@ import CountryCard from '../../CountryCard/CountryCard.js';
 export default function Main() {
   const [order, setOrder] = useState('');
   const [searchByName, setSearchByName] = useState('');
+  const [loadState, setLoadState] = useState('loading');
 
-  const { countries, error } = useAllCountries(order, searchByName);
+  const { countries, error } = useAllCountries(order, searchByName, setLoadState);
 
   const filteredCountries = countries.filter((countriesArray) => countriesArray);
 
@@ -53,6 +54,7 @@ export default function Main() {
         onChange={(e) => setSearchByName(e.target.value)}
       />
       <p id="error-display">{error}</p>
+      <p id="load-state-display">{loadState}</p>
       {filteredCountries.map((country) => {
         if (selectedContinent === 'All') {
           return <CountryCard key={country.id} {...country} />;
